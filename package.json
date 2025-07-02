@@ -1,0 +1,11 @@
+{
+  "name": "loomix",
+  "private": true,
+  "version": "1.0.0",
+  "author": "HongMyeong Moon",
+  "workspaces": ["packages/*"],
+  "packageManager": "pnpm@10.12.4",
+  "scripts": {
+    "dev:flowcanvas": "pnpm --filter flowcanvas dev"
+  }
+}
