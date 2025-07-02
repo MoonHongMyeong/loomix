@@ -1,0 +1,69 @@
+/* ----------------------------------------------------------
+ * 1. Reset
+ * ---------------------------------------------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove list styles */
+ul, ol {
+  list-style: none;
+}
+
+/* Remove default button/input styles */
+button, input, textarea, select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Anchor reset */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Image reset */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Table reset */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ----------------------------------------------------------
+ * 2. Font (Noto Sans)
+ * ---------------------------------------------------------- */
+
+:root {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 16px;
+  color: #222;
+  background-color: #fff;
+}
+
+/* ----------------------------------------------------------
+ * 3. Root Layout
+ * ---------------------------------------------------------- */
+
+#root {
+  min-height: 100vh;
+  isolation: isolate;
+}
