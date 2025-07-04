@@ -1,14 +1,11 @@
-export type WorkspaceConfig = {
-    width: number;
-    height: number;
+import type { Point, Size } from "./common";
+
+export type WorkspaceConfig = Size & {
     minZoom: number;
     maxZoom: number;
 }
 
-export type WorkspaceState = {
-    pan: { // view port offset
-        x: number;
-        y: number;
-    };
+export type WorkspaceViewPort = {
+    pan: Point;
     zoom: number;
 }

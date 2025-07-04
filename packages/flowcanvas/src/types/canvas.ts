@@ -1,10 +1,9 @@
+import type { Point } from "./common";
+
 export type NodeData = {
     id: string;
     type: string;
-    position: {
-        x: number;
-        y: number;
-    };
+    position: Point;
     inputs: Port[];
     outputs: Port[];
     state?: Record<string, any>;
@@ -30,6 +29,6 @@ export type EdgeData = {
 };
 
 export type FlowCanvasState = {
-    nodes: NodeData[];
-    edges: EdgeData[];
+    nodes: Record<string, NodeData>;
+    edges: Record<string, EdgeData>;
 };
