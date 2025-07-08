@@ -1,4 +1,4 @@
-import { useFlowCanvasStore } from "../../../store/useFlowCanvasStore";
+import { useFlowCanvasStore } from "@/store/useFlowCanvasStore";
 import NodeComponent from "./NodeComponent";
 
 const NodeRenderer = () => {

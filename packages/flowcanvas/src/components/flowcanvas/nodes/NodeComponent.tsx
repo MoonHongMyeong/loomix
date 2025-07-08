@@ -1,5 +1,5 @@
-import { nodeDefinitions } from "../../../constants";
-import type { NodeData } from "../../../types";
+import { nodeDefinitions } from "@/constants";
+import type { NodeData } from "@/types";
 import NodeDescriptionComponent from "./NodeDescriptionComponent";
 import PortComponent from "./PortComponent";
 

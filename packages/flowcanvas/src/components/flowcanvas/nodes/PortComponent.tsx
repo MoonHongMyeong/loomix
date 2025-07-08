@@ -1,4 +1,4 @@
-import type { Port } from "../../../types";
+import type { Port } from "@/types";
 
 interface PortComponentProps {
     port: Port
