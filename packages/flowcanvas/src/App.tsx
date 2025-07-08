@@ -1,8 +1,10 @@
+import Flowcanvas from "./components/flowcanvas"
+
 function App() {
   return (
-    <>
-      <span>초기화</span>
-    </>
+    <main className="w-screen h-screen overflow-hidden">
+      <Flowcanvas/>
+    </main>
   )
 }
 

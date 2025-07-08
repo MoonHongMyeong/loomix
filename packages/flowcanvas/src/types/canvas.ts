@@ -1,16 +1,33 @@
-import type { Point } from "./common";
+import type { Point, Size } from "./common";
+
+export type NodeDefinition = {
+    type: string;
+    label: string;
+    icon?: React.ReactNode;
+    style?: {
+        backgroundColor?: string;
+        borderColor?: string;
+        textColor?: string;
+    };
+    defaultSize: Size;
+};  
 
 export type NodeData = {
     id: string;
-    type: string;
+    type: string; // NodeDefinition과 매핑할 타입.
     position: Point;
     inputs: Port[];
     outputs: Port[];
-    state?: Record<string, any>;
+    state?: Record<string, any>; // 런타임 실행 상태 정의용
+    ui? : {
+        description?: string;
+        descriptionOpen?: boolean;
+    }
 };
 
 export type Port = {
     id: string;
+    position: Point;
     label: string;
     dataType: string;
     connectedEdgeIds: string[];
