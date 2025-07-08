@@ -24,26 +24,30 @@ const NodeComponent = ( { node }: NodeComponentProps ) => {
                 color: def.style?.textColor
             }}
         >
-            {/* 라벨 */}
-            <div className="flex items-center gap-1 px-2 py-1 border-b border-gray-300">
-                {def.icon && <span className="w-4 h-4">{def.icon}</span>}
-                <span className="font-semibold text-xs">{def.label}</span>
-            </div>
             <div className="relative w-full h-full">
-                {/* 입력 포트 */}
-                {node.inputs.map((port) => (
-                    <PortComponent key={port.id} port={port}/>
-                ))}
-                {/* 출력 포트 */}
-                {node.outputs.map((port) => (
-                    <PortComponent key={port.id} port={port}/>
-                ))}
+                {/* 라벨 */}
+                <div className="absolute top-0 left-0 w-full h-full pointer-event-none z-10">
+                    <div className="flex justify-center items-center w-full h-full">
+                        {def.icon && <span className="w-4 h-4">{def.icon}</span>}
+                        <span className="font-semibold text-xs">{def.label}</span>
+                    </div>
+                </div>
+                <div className="absolute top-0 left-0 w-full h-full z-20">
+                    {/* 입력 포트 */}
+                    {node.inputs.map((port) => (
+                        <PortComponent key={port.id} port={port}/>
+                    ))}
+                    {/* 출력 포트 */}
+                    {node.outputs.map((port) => (
+                        <PortComponent key={port.id} port={port}/>
+                    ))}
+                </div>
+                {/* 설명 */}
+                <NodeDescriptionComponent 
+                    description={node.ui?.description } 
+                    isOpen={node.ui?.descriptionOpen}
+                />
             </div>
-            {/* 설명 */}
-            <NodeDescriptionComponent 
-                description={node.ui?.description } 
-                isOpen={node.ui?.descriptionOpen}
-            />
         </div>
     )
 }
