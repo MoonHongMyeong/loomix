@@ -1,8 +1,11 @@
 import { create } from "zustand";
 import type { EdgeData, FlowCanvasState, NodeData } from "../types";
+import { AddNodeRequest } from "@/types/nodes";
+import { nodeDefinitions } from "@/constants";
+import { generatedNodeId } from "@/utils/id";
 
 type FlowCanvasStore = FlowCanvasState & {
-    addNode: (node: NodeData) => void;
+    addNode: (req: AddNodeRequest) => void;
     removeNode: (nodeId: NodeData["id"]) => void;
     updateNodePosition: (NodeId: NodeData["id"], x: number, y: number) => void;
 
@@ -14,10 +17,21 @@ export const useFlowCanvasStore = create<FlowCanvasStore>((set) => ({
   nodes: {},
   edges: {},
 
-  addNode: (node) => 
-    set((state) => ({
-      nodes: { ...state.nodes, [node.id]: node },
-    })),
+  addNode: ({type, position}) => {
+    const def = nodeDefinitions[type];
+    if (!def) throw Error(`Invalid node type: ${type}`);
+
+    const newNode: NodeData = {
+      id: generatedNodeId(),
+      type,
+      position,
+      inputs: [],
+      outputs: [],
+      ui: {}
+    };
+
+    set((state) => ({ nodes: {...state.nodes, [newNode.id]: newNode} }));
+  },
 
   removeNode: (nodeId) => 
     set((state) => {
