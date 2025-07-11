@@ -1,19 +1,23 @@
-import { create } from "zustand";
-import type { EdgeData, FlowCanvasState, NodeData } from "../types";
-import { AddNodeRequest } from "@/types/nodes";
 import { nodeDefinitions } from "@/constants";
-import { generatedNodeId } from "@/utils/id";
+import { AddNodeRequest } from "@/types/nodes";
+import { generateNodeId } from "@/utils/id";
+import { create } from "zustand";
+import type { EdgeData, FlowCanvasState, NodeData, Port } from "../types";
 
 type FlowCanvasStore = FlowCanvasState & {
     addNode: (req: AddNodeRequest) => void;
     removeNode: (nodeId: NodeData["id"]) => void;
+    updateNode: (nodeId: NodeData["id"], node: NodeData) => void;
     updateNodePosition: (NodeId: NodeData["id"], x: number, y: number) => void;
 
     addEdge: (edge: EdgeData) => void;
     removeEdge: (edgeId: EdgeData["id"]) => void;
+
+    addInputPort:(nodeId: NodeData["id"], port: Port) => void;
+    addOutputPort:(nodeId: NodeData["id"], port:Port) => void;
 }
 
-export const useFlowCanvasStore = create<FlowCanvasStore>((set) => ({
+export const useFlowCanvasStore = create<FlowCanvasStore>((set, get) => ({
   nodes: {},
   edges: {},
 
@@ -22,7 +26,7 @@ export const useFlowCanvasStore = create<FlowCanvasStore>((set) => ({
     if (!def) throw Error(`Invalid node type: ${type}`);
 
     const newNode: NodeData = {
-      id: generatedNodeId(),
+      id: generateNodeId(),
       type,
       position,
       inputs: [],
@@ -38,6 +42,19 @@ export const useFlowCanvasStore = create<FlowCanvasStore>((set) => ({
       const { [nodeId]: _, ... rest } = state.nodes;
       return { nodes: rest }
     }),
+
+  updateNode: (nodeId, node) => 
+    set((state) => {
+      return {
+        nodes: {
+          ...state.nodes,
+          [nodeId]: {
+            ...node
+          }
+        }
+      }
+    }),
+  
 
   updateNodePosition: (nodeId, x, y) => 
     set((state) => {
@@ -63,6 +80,16 @@ export const useFlowCanvasStore = create<FlowCanvasStore>((set) => ({
     set((state) => {
       const { [edgeId]: _, ...rest } = state.edges;
       return { edges: rest }
-    })
+    }),
+
+  addInputPort: (nodeId, port) => {
+    const node = get().nodes[`node_${nodeId}`];
+    node.inputs.push(port);
+  },
+
+  addOutputPort: (nodeId, port) => {
+    const node = get().nodes[`node_${nodeId}`];
+    node.outputs.push(port);
+  }
 
 }));

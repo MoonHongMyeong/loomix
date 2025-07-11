@@ -25,12 +25,15 @@ export type NodeData = {
     }
 };
 
+export type PortSide = "left" | "right" | "top" | "bottom";
+
+export type PortType = "input" | "output";
+
 export type Port = {
     id: string;
+    type: PortType;
     position: Point;
-    label: string;
-    dataType: string;
-    connectedEdgeIds: string[];
+    side: PortSide;
 };
 
 export type EdgeData = {

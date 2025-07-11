@@ -4,3 +4,8 @@ export type ContextMenuState = {
     isOpen: boolean;
     screenPosition: Point;
 }
+
+export type ConnectSelection = {
+    fromNodeId: string | null;
+    toNodeId: string | null;
+}

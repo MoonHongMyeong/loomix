@@ -1,4 +1,5 @@
 import type { Port } from "@/types";
+import { PORT_SIZE } from "../config";
 
 interface PortComponentProps {
     port: Port
@@ -7,10 +8,13 @@ interface PortComponentProps {
 const PortComponent = ( { port }: PortComponentProps ) => {
     return (
         <div
-            className="absolute w-3 h-3 rounded full bg-gray-400"
+            className={`absolute rounded-full`}
             style={{
                 left: port.position.x,
-                top: port.position.y
+                top: port.position.y,
+                background: "black",
+                width: PORT_SIZE,
+                height: PORT_SIZE
             }}
         />
     )

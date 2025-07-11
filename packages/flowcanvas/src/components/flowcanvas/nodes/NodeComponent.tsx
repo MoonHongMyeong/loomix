@@ -1,4 +1,5 @@
 import { nodeDefinitions } from "@/constants";
+import { useInteractionStore } from "@/store/useInteractionStore";
 import type { NodeData } from "@/types";
 import NodeDescriptionComponent from "./NodeDescriptionComponent";
 import PortComponent from "./PortComponent";
@@ -11,9 +12,18 @@ const NodeComponent = ( { node }: NodeComponentProps ) => {
     const def = nodeDefinitions[node.type];
     if(!def) return null;
 
+    const { selectNodeForConnection, connectSelection } = useInteractionStore();
+    const isSelected = connectSelection.fromNodeId === node.id;
+
+    const selectNodeWithClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        selectNodeForConnection(node.id);
+    }
+
     return (
         <div 
-            className="absolute border rounded"
+            onClick={selectNodeWithClick}
+            className={`absolute border rounded transition-all ${isSelected && "border-blue-500 ring-2 ring-blue-300"}`}
             style={{
                 left: node.position.x,
                 top: node.position.y,
@@ -33,14 +43,16 @@ const NodeComponent = ( { node }: NodeComponentProps ) => {
                     </div>
                 </div>
                 <div className="absolute top-0 left-0 w-full h-full z-20">
-                    {/* 입력 포트 */}
-                    {node.inputs.map((port) => (
-                        <PortComponent key={port.id} port={port}/>
-                    ))}
-                    {/* 출력 포트 */}
-                    {node.outputs.map((port) => (
-                        <PortComponent key={port.id} port={port}/>
-                    ))}
+                    <div className="relative w-full h-full">
+                        {/* 입력 포트 */}
+                        {node.inputs.map((port) => (
+                            <PortComponent key={port.id} port={port}/>
+                        ))}
+                        {/* 출력 포트 */}
+                        {node.outputs.map((port) => (
+                            <PortComponent key={port.id} port={port}/>
+                        ))}
+                    </div>
                 </div>
                 {/* 설명 */}
                 <NodeDescriptionComponent 

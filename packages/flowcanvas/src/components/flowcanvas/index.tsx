@@ -3,6 +3,7 @@ import EdgeCanvas from "./canvas/EdgeCanvas";
 import EdgeEventCanvas from "./canvas/EdgeEventCanvas";
 import NodeRenderer from "./nodes/NodeRenderer";
 import CanvasContextMenu from "./overlay/CanvasContextMenu";
+import ConnectBehavior from "./behavior/ConnectionBehavior";
 
 const Flowcanvas = () => {
     const openContextMenu = useInteractionStore((state) => state.onContextMenu);
@@ -18,8 +19,10 @@ const Flowcanvas = () => {
             <EdgeCanvas/>
             <EdgeEventCanvas/>
             <NodeRenderer/>
-
+            
             <CanvasContextMenu/>
+
+            <ConnectBehavior/>
         </div>
     );
 };
